@@ -1,0 +1,171 @@
+:root {
+    /* Fonts */
+    --font-body: "Roboto", sans-serif;
+    --font-headline: "Libre Baskerville", serif;
+
+    /* Colors */
+    --light-blue: #1EA0FF;
+    --dark-blue: #3A34E5;
+    --light-red: #FF5C5C;
+    --dark-red: #C80042;
+
+    /* Grays */
+    --gray-100: #F7F7F7;
+    --gray-300: #D1D5DB;
+    --gray-500: #6B7280;
+    --gray-800: #1F2937;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--gray-800);
+}
+
+header {
+    display: flex;
+    align-items: center;
+    margin: 1rem 1rem 0 1rem;
+    padding: 1rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    background-color: white;
+
+    h1 {
+        font-family: var(--font-headline);
+        font-size: 1.75rem;
+        font-weight: bold;
+        font-style: italic;
+        color: black;
+    }
+
+    nav.primary-nav {
+        display: flex;
+        gap: 1rem;
+        width: 50%;
+        margin-left: auto;
+
+        button {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            font-family: var(--font-headline);
+            font-size: 1.25rem;
+            font-style: italic;
+            border: none;
+            border-radius: .75rem;
+            background: linear-gradient(to bottom, var(--dark-blue), var(--light-blue));
+            color: white;
+
+            &.active {
+                font-weight: bold;
+                border: 2px solid var(--dark-blue);
+                background: none;
+                color: var(--dark-blue);
+            }
+        }
+    }
+}
+
+main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 1rem;
+    background-color: var(--gray-300);
+
+    nav.secondary-nav {
+        display: flex;
+        gap: 0.5rem;
+        width: 100%;
+        padding-top: 0.5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        background-color: black;
+
+        button {
+            flex: 1;
+            margin-bottom: .5rem;
+            padding: 0.25rem 0;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: .5rem;
+            background-color: white;
+
+            &.active {
+                margin-bottom: 0;
+                font-size: 1.125rem;
+                border-bottom: none;
+                border-radius: .75rem .75rem 0 0;
+                background-color: var(--gray-300);
+            }
+        }
+    }
+
+    section.content-area {
+        ul.news-articles {
+            article.news-card {
+                display: flex;
+                flex-direction: column;
+                background: white;
+                border-radius: 12px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+                max-width: 400px;
+                margin: 1rem auto;
+                font-family: var(--font-body);
+                color: var(--gray-800);
+
+                img {
+                    width: 100%;
+                    height: auto;
+                    object-fit: cover;
+                    display: block;
+                }
+
+                div.news-content {
+                    padding: 1rem 1.25rem;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+
+                    h2.news-title {
+                        font-family: var(--font-headline);
+                        font-size: 1.25rem;
+                        font-weight: 700;
+                        margin: 0;
+                        color: var(--dark-blue);
+                    }
+
+                    p.news-snippet {
+                        font-size: 1rem;
+                        line-height: 1.5;
+                        color: black;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    margin: 0 1rem 1rem 1rem;
+    padding: 1rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    background-color: black;
+    color: white;
+}

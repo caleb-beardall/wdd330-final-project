@@ -1,23 +1,59 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF=8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>News Feed</title>
-        <link rel="stylesheet" href="/css/styles.css">
-        <script src="js/main.js" type="module"></script>
-    </head>
 
-    <body>
-        <header class="divider" id="main-header"></header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Feed</title>
+    <link rel="stylesheet" href="./css/styles.css">
 
-        <main class="divider">
-            <div id="test">
-                <h2>Welcome</h2>
-                <p>This is a placeholder main content section. Replace it with your actual content later.</p>
-            </div>
-        </main>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Roboto&display=swap"
+        rel="stylesheet">
 
-        <footer class="divider" id="main-footer"></footer>
-    </body>
+    <script src="./js/main.js" type="module"></script>
+</head>
+
+<body>
+    <header id="main-header"></header>
+
+    <main>
+        <nav class="secondary-nav">
+            <button class="active">World</button>
+            <button>Business</button>
+            <button>Technology</button>
+            <button>Health</button>
+            <button>Sports</button>
+        </nav>
+
+        <nav class="secondary-nav hidden">
+            <button class="active">AAPL</button>
+            <button>GOOGL</button>
+            <button>AMZN</button>
+            <button>MSFT</button>
+            <button>TSLA</button>
+        </nav>
+
+        <section class="content-area">
+            <ul class="news-articles">
+                <article class="news-card">
+                    <img src="https://via.placeholder.com/400x200" alt="Article image" />
+                    <div class="news-content">
+                        <h2 class="news-title">Breaking News: Exciting Developments Unfold in Tech World</h2>
+                        <p class="news-snippet">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae eros eget tellus
+                            tristique bibendum.
+                            Donec rutrum sed sem quis venenatis.
+                        </p>
+                    </div>
+                </article>
+            </ul>
+        </section>
+    </main>
+
+    <footer id="main-footer"></footer>
+</body>
+
 </html>
