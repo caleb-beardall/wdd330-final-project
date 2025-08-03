@@ -52,7 +52,7 @@ async function loadTemplate(path) {
 // Renders header.html in #main-header and footer.html in #main-footer
 export async function loadHeaderFooter() {
     const headerTemplate = await loadTemplate("https://caleb-beardall.github.io/wdd330-final-project/public/partials/header.html");
-    const footerTemplate = await loadTemplate("https://caleb-beardall.github.io/wdd330-final-project/public/partials/header.html");
+    const footerTemplate = await loadTemplate("https://caleb-beardall.github.io/wdd330-final-project/public/partials/footer.html");
 
     const headerElement = document.querySelector("#main-header");
     const footerElement = document.querySelector("#main-footer");
