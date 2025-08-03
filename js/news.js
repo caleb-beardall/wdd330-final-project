@@ -9,8 +9,8 @@ import { loadNews } from "./news.mjs"
 const defaultCompany = "apple";
 const defaultTopic = "news";
 
-
-function handleClick(event) {
+// Handle user click to change company/topic
+async function handleClick(event) {
     const clicked = event.currentTarget;
     const topic = clicked.dataset.topic;
     const company = clicked.id;
@@ -18,19 +18,25 @@ function handleClick(event) {
     // Update the company buttons' active class
     updateActiveClass("company-btn", `${company}`);
 
-    // Load news articles for the selected company
-    loadNews(company, topic);
+    try {
+        // Load news articles for the selected company
+        await loadNews(company, topic);
+    } catch (error) {
+        console.error(`Failed to load news for ${company}:`, error);
+    }
 }
 
-// Load reusable UI components (like <header> and <footer>)
-await loadHeaderFooter();
+// Initialization logic wrapped in async IIFE
+(async function init() {
+    try {
+        await loadHeaderFooter();
+        updateActiveClass("primary-btn", "news-btn");
+        await loadNews(defaultCompany, defaultTopic);
+    } catch (error) {
+        console.error("Initialization failed:", error);
+    }
 
-// Update the primary buttons' active class
-updateActiveClass("primary-btn", "news-btn");
-
-// Load news articles for the default topic
-loadNews(defaultCompany, defaultTopic);
-
-// Attach event listeners to all company buttons
-const allCompanyButtons = document.querySelectorAll(".company-btn");
-allCompanyButtons.forEach(btn => setClick(btn, handleClick));
+    // Attach event listeners after DOM is ready
+    const allCompanyButtons = document.querySelectorAll(".company-btn");
+    allCompanyButtons.forEach(btn => setClick(btn, handleClick));
+})();
