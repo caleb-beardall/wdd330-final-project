@@ -43,13 +43,14 @@ header {
         color: black;
     }
 
-    nav.primary-nav {
+    ul.primary-btns {
         display: flex;
         gap: 1rem;
         width: 50%;
         margin-left: auto;
+        list-style-type: none;
 
-        button {
+        li {
             flex: 1;
             padding: 0.5rem 1rem;
             font-family: var(--font-headline);
@@ -58,13 +59,24 @@ header {
             border: none;
             border-radius: .75rem;
             background: linear-gradient(to bottom, var(--dark-blue), var(--light-blue));
-            color: white;
+            cursor: pointer;
 
             &.active {
                 font-weight: bold;
                 border: 2px solid var(--dark-blue);
                 background: none;
                 color: var(--dark-blue);
+
+                a {
+                    color: var(--dark-blue);
+                }
+            }
+
+            a {
+                display: flex;
+                justify-content: center;
+                text-decoration: none;
+                color: white;
             }
         }
     }
@@ -77,7 +89,7 @@ main {
     margin: 0 1rem;
     background-color: var(--gray-300);
 
-    nav.secondary-nav {
+    nav#news-buttons {
         display: flex;
         gap: 0.5rem;
         width: 100%;
@@ -95,6 +107,7 @@ main {
             border: none;
             border-radius: .5rem;
             background-color: white;
+            cursor: pointer;
 
             &.active {
                 margin-bottom: 0;

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Feed</title>
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Roboto&display=swap"
+        rel="stylesheet">
+
+    <script src="../js/news.js" type="module"></script>
+</head>
+
+<body>
+    <header id="main-header"></header>
+
+    <main>
+        <nav id="news-buttons">
+            <button id="apple" class="company-btn active" data-topic="news">Apple</button>
+            <button id="google" class="company-btn" data-topic="news">Google</button>
+            <button id="amazon" class="company-btn" data-topic="news">Amazon</button>
+            <button id="microsoft" class="company-btn" data-topic="news">Microsoft</button>
+            <button id="tesla" class="company-btn" data-topic="news">Tesla</button>
+        </nav>
+
+        <section class="content-area">
+            <ul class="news-articles">
+            </ul>
+        </section>
+    </main>
+
+    <footer id="main-footer"></footer>
+</body>
+
+</html>
