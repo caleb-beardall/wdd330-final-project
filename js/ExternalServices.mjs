@@ -13,10 +13,10 @@ export default class ExternalServices {
 
             // Determine which API need to be accessed
             if (this.topic === "news") {
-                url = `https://gnews.io/api/v4/search?q=${this.company}&lang=en&max=10&apikey=48b4a45aec6008b3e2cf081e61499698`;
+                url = `https://gnews.io/api/v4/search?q=${this.company}&lang=en&max=3&apikey=48b4a45aec6008b3e2cf081e61499698`;
             } else if (this.topic === "stocks") {
                 // In the future, fetch from a different API for stock data
-                url = `https://gnews.io/api/v4/search?q=${this.company}&lang=en&max=10&apikey=48b4a45aec6008b3e2cf081e61499698`;
+                url = `https://gnews.io/api/v4/search?q=${this.company}&lang=en&max=3&apikey=48b4a45aec6008b3e2cf081e61499698`;
             }
 
             // Prepare and return the API's .json data as a JS object
