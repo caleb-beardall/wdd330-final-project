@@ -93,7 +93,7 @@ header {
 }
 
 main {
-    nav#news-buttons {
+    nav#company-buttons {
         display: flex;
         gap: 0.5rem;
         width: 100%;
@@ -111,6 +111,11 @@ main {
             padding: .25rem;
             margin: 0.5rem 0;
             cursor: pointer;
+        }
+
+        /* Hidden on desktop */
+        .open {
+            display: none;
         }
 
         .active {
@@ -147,9 +152,73 @@ footer {
         }
 
         .primary-btns {
-            flex-direction: column;
             max-width: unset;
             margin-top: 1rem;
+        }
+    }
+
+    main {
+        nav#company-buttons {
+
+            .company-btn {
+                display: none;
+            }
+
+            .open {
+                display: flex;
+                flex: 1;
+                justify-content: center;
+                align-items: center;
+                font-family: var(--font-headline);
+                font-size: 1.25rem;
+                border: none;
+                border-radius: .5rem;
+                background-color: var(--gray-300);
+                color: var(--gray-900);
+                padding: .25rem;
+                margin: 0.5rem 0;
+                cursor: pointer;
+
+                &::before {
+                    content: "Menu";
+                }
+            }
+
+            .active {
+                display: flex;
+                justify-content: center;
+            }
+
+            /* Dropdown Menu */
+            &.dropdown-container {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 0.5rem;
+
+                .company-btn {
+                    display: flex;
+                    flex: 1;
+                    justify-content: center;
+                    align-items: center;
+                    font-family: var(--font-headline);
+                    font-size: 1.25rem;
+                    border: none;
+                    border-radius: .5rem;
+                    background-color: var(--gray-300);
+                    color: var(--gray-900);
+                    padding: .25rem;
+                    margin: 0;
+                    cursor: pointer;
+                }
+
+                .open {
+                    margin: 0;
+
+                    &::before {
+                        content: "Close";
+                    }
+                }
+            }
         }
     }
 }

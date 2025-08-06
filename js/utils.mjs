@@ -68,3 +68,9 @@ export function updateActiveClass(className, idName) {
     const activeElement = qs(`#${idName}`);
     activeElement.classList.add("active");
 }
+
+// Open and closes the mobile menu
+export function toggleMenu() {
+    const drpdwnContainer = qs("#company-buttons");
+    drpdwnContainer.classList.toggle("dropdown-container");
+}

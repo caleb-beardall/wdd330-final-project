@@ -1,22 +1,30 @@
 import {
-    loadHeaderFooter,
+    qs,
     setClick,
-    updateActiveClass
+    getLocalStorage,
+    setLocalStorage,
+    loadHeaderFooter,
+    updateActiveClass,
+    toggleMenu
 } from "./utils.mjs"
 import { loadNews } from "./news.mjs"
 
-// Set default company and topic
-const defaultCompany = "apple";
+// Pull the user's preferred company from LS
+// If no preferred company is set, use apple
+const defaultCompany = getLocalStorage("prefCompany-ls") || "apple";
 const defaultTopic = "news";
 
 // Handle user click to change company/topic
-async function handleClick(event) {
+async function handleCompanyClick(event) {
     const clicked = event.currentTarget;
     const topic = clicked.dataset.topic;
     const company = clicked.id;
 
     // Update the company buttons' active class
     updateActiveClass("company-btn", `${company}`);
+
+    // Update the user's preferred company in LS
+    setLocalStorage("prefCompany-ls", company);
 
     try {
         // Load news articles for the selected company
@@ -30,7 +38,7 @@ async function handleClick(event) {
 (async function init() {
     try {
         await loadHeaderFooter();
-        updateActiveClass("primary-btn", "news-btn");
+        updateActiveClass("company-btn", `${defaultCompany}`);
         await loadNews(defaultCompany, defaultTopic);
     } catch (error) {
         console.error("Initialization failed:", error);
@@ -38,5 +46,7 @@ async function handleClick(event) {
 
     // Attach event listeners after DOM is ready
     const allCompanyButtons = document.querySelectorAll(".company-btn");
-    allCompanyButtons.forEach(btn => setClick(btn, handleClick));
+    allCompanyButtons.forEach(btn => setClick(btn, handleCompanyClick));
+    const menuButton = qs("#menu");
+    setClick(menuButton, toggleMenu);
 })();
