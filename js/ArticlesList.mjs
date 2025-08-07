@@ -1,4 +1,3 @@
-
 import { renderListWithTemplate } from "./utils.mjs";
 
 /*
@@ -51,9 +50,8 @@ import { renderListWithTemplate } from "./utils.mjs";
 }
 */
 
-// Create the HTML template and fill it with the API's data
 function newsArticleTemplate(article) {
-    return `
+  return `
         <li class="news-article">
             <a href="${article.url}" class="article-card" target="_blank" rel="noopener noreferrer">
                 <img src="${article.image}" alt="Article image" class="article-image" />
@@ -67,19 +65,13 @@ function newsArticleTemplate(article) {
 }
 
 export default class ArticlesList {
-    constructor(data, element) {
-        this.data = data;
-        this.element = element;
-    }
+  constructor(data, element) {
+    this.data = data;
+    this.element = element;
+    this.renderList(this.data.articles);
+  }
 
-    // Initiating the list of articles
-    init() {
-        const list = this.data.articles;
-        this.renderList(list);
-    }
-
-    // Rendering the initiated list using the renderListWithTemplate function
-    renderList(list) {
-        renderListWithTemplate(newsArticleTemplate, this.element, list);
-    }
+  renderList(list) {
+    renderListWithTemplate(newsArticleTemplate, this.element, list);
+  }
 }

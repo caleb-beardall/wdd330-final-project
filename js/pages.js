@@ -1,55 +1,67 @@
 import {
-    loadHeaderFooter,
     qs,
-    setClick
+    setClick,
+    getLocalStorage,
+    setLocalStorage,
+    loadHeaderFooter,
+    updateActiveClass,
+    toggleMenu,
+    getPage
 } from "./utils.mjs"
-import { loadNews } from "./news.mjs"
-// import { loadStock } from "./stocks.mjs"
+import { loadNewsArticles } from "./news.mjs"
+import { loadStockCard } from "./stocks.mjs"
 
-function handleCompanyClick(event) {
-    const clicked = event.currentTarget;
-    const container = clicked.closest("nav");
-    const company = clicked.dataset.company;
+// Get the user's preferred company from localStorage
+// Defaults to "apple" if not set
+const company = getLocalStorage("prefCompany-ls") || "apple";
 
-    // Remove the active class from all company buttons
-    const allButtons = container.querySelectorAll(".company-btn");
-    allButtons.forEach(btn => btn.classList.remove("active"));
-    clicked.classList.add("active");
+// Determine the current topic based on the page (e.g., "news" or "stocks")
+const topic = getPage();
 
-    // Call appropriate handler based on which nav was clicked
-    if (page === "news.html") {
-        loadNews(company, "news");
-    } else if (page === "stocks.html") {
-        loadStock(company, "stocks");
+// Load either news or stock data based on topic
+async function loadContentByTopic(company, topic) {
+    if (topic === "news") {
+        await loadNewsArticles(company, topic);
+    } else {
+        await loadStockCard(company, topic);
     }
 }
 
-// Load reusable UI components (like <header> and <footer>)
-await loadHeaderFooter();
+// Handle company button click to update content and state
+async function handleCompanyClick(event) {
+    const clicked = event.currentTarget;
+    const company = clicked.id;
 
-// Determine current page from URL
-const pathname = window.location.pathname;
-const page = pathname.substring(pathname.lastIndexOf("/") + 1);
+    // Set the active class on the selected company button
+    updateActiveClass("company-btn", `${company}`);
 
-// Set default company and topic
-const defaultCompany = "apple";
-const defaultTopic = page.includes("news") ? "news" :
-    page.includes("stocks") ? "stocks" : null;
+    // Save the selected company to localStorage
+    setLocalStorage("prefCompany-ls", company);
 
-// Remove the active class from all primary buttons
-const primaryButtons = document.querySelectorAll(".primary-btn");
-primaryButtons.forEach(btn => btn.classList.remove("active"));
+    try {
+        // Load content for the selected company
+        await loadContentByTopic(company, topic);
 
-if (defaultTopic === "news") {
-    const newsButton = qs("#news-btn");
-    newsButton.classList.add("active");
-    loadNews(defaultCompany, defaultTopic);
-} else if (defaultTopic === "stocks") {
-    const stocksButton = qs("#stocks-btn");
-    stocksButton.classList.add("active");
-    loadStock(defaultCompany, defaultTopic);
+    } catch (error) {
+        console.error(`Failed to load ${company}'s results:`, error);
+    }
 }
 
-// Attach event listeners to all company buttons
-const allCompanyButtons = document.querySelectorAll(".company-btn");
-allCompanyButtons.forEach(btn => setClick(btn, handleCompanyClick));
+// Initialize header/footer, content, and event listeners
+(async function init() {
+    try {
+        await loadHeaderFooter();
+        updateActiveClass("company-btn", `${company}`);
+        await loadContentByTopic(company, topic);
+
+    } catch (error) {
+        console.error("Initialization failed:", error);
+    }
+
+    // Attach click/touch event handlers to UI buttons
+    const allCompanyButtons = document.querySelectorAll(".company-btn");
+    allCompanyButtons.forEach(btn => setClick(btn, handleCompanyClick));
+
+    const menuButton = qs("#menu");
+    setClick(menuButton, toggleMenu);
+})();

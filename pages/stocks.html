@@ -1,7 +1,40 @@
-<nav class="secondary-nav hidden">
-    <button id="apple-stock-btn" class="active">AAPL</button>
-    <button id="google-stock-btn">GOOGL</button>
-    <button id="amazon-stock-btn">AMZN</button>
-    <button id="micro-stock-btn">MSFT</button>
-    <button id="tesla-stock-btn">TSLA</button>
-</nav>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Performance</title>
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto&display=swap"
+        rel="stylesheet">
+
+    <script src="../js/pages.js" type="module"></script>
+</head>
+
+<body>
+    <header id="main-header"></header>
+
+    <main>
+        <nav id="company-buttons">
+            <button id="apple" class="company-btn">Apple</button>
+            <button id="google" class="company-btn">Google</button>
+            <button id="amazon" class="company-btn">Amazon</button>
+            <button id="microsoft" class="company-btn">Microsoft</button>
+            <button id="tesla" class="company-btn">Tesla</button>
+            <button id="menu" class="open"></button>
+        </nav>
+
+        <section class="content-area">
+            <ul class="stock-card">
+            </ul>
+        </section>
+    </main>
+
+    <footer id="main-footer"></footer>
+</body>
+
+</html>

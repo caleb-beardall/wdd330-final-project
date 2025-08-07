@@ -1,24 +1,25 @@
 import ExternalServices from "./ExternalServices.mjs";
 import ArticlesList from "./ArticlesList.mjs";
 
-export async function loadNews(company, topic) {
-    // Selects the parent element that will be injected with the list
-    const listContainer = document.querySelector(".news-articles");
+export async function loadNewsArticles(company, topic) {
+    // Get the element that will display the list of articles
+    const articlesContainer = document.querySelector(".news-articles");
 
-    // Show loading message
-    listContainer.innerHTML = `<p class="loading-message">Loading news about ${company}...</p>`;
+    // Display loading message while fetching data
+    articlesContainer.innerHTML = `<p class="loading-message">Loading ${company}'s news updates...</p>`;
 
     try {
-        // Fetch the news data
+        // Create a data source and fetch the news data
         const dataSource = new ExternalServices(company, topic);
         const data = await dataSource.getData();
 
-        // Create the list of HTML to be injected using a template
-        const listOfArticles = new ArticlesList(data, listContainer);
-        listOfArticles.init();
+        // Create ArticlesList instance and render articles directly
+        const articlesList = new ArticlesList(data, articlesContainer);
+        articlesList.renderList(data.articles);
+
     } catch (error) {
-        // Show error message if something goes wrong
-        listContainer.innerHTML = `<p class="error-message">Failed to load articles. Please try again.</p>`;
+        // Display error message if fetch fails
+        articlesContainer.innerHTML = `<p class="error-message">Failed to load news articles.</p>`;
         console.error("Error loading news:", error);
     }
 }
