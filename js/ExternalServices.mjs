@@ -1,9 +1,9 @@
 import { getTicker } from "./utils.mjs";
 
 export default class ExternalServices {
-    constructor(company, topic) {
+    constructor(company, page) {
         this.company = company;
-        this.topic = topic;
+        this.page = page;
         this.ticker = getTicker(company);
     }
 
@@ -17,17 +17,17 @@ export default class ExternalServices {
         return `https://api.twelvedata.com/quote?symbol=${this.ticker}&apikey=d6d3d3f4a2084714b0d62459c60c4591`;
     }
 
-    // Fetch data from the appropriate API based on the topic
+    // Fetch data from the appropriate API based on the page
     async getData() {
         try {
             let url;
 
-            if (this.topic === "news") {
+            if (this.page === "news") {
                 url = this.newsApiUrl;
-            } else if (this.topic === "stocks") {
+            } else if (this.page === "stocks") {
                 url = this.stocksApiUrl;
             } else {
-                throw new Error(`Unknown topic: ${this.topic}`);
+                throw new Error(`Unknown page: ${this.page}`);
             }
 
             const response = await fetch(url);

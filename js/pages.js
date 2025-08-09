@@ -1,67 +1,58 @@
 import {
     qs,
     setClick,
-    getLocalStorage,
-    setLocalStorage,
-    loadHeaderFooter,
     updateActiveClass,
     toggleMenu,
-    getPage
-} from "./utils.mjs"
-import { loadNewsArticles } from "./news.mjs"
-import { loadStockCard } from "./stocks.mjs"
+    getPage,
+    getLocalStorage,
+    setLocalStorage,
+    loadHeaderFooter
+} from "./utils.mjs";
+import { loadNewsArticles } from "./news.mjs";
+import { loadStockCard } from "./stocks.mjs";
 
-// Get the user's preferred company from localStorage
-// Defaults to "apple" if not set
-const company = getLocalStorage("prefCompany-ls") || "apple";
+const companyStorageKey = "prefCompany-ls";
+let company = getLocalStorage(companyStorageKey) || "apple";
+const page = getPage();
 
-// Determine the current topic based on the page (e.g., "news" or "stocks")
-const topic = getPage();
-
-// Load either news or stock data based on topic
-async function loadContentByTopic(company, topic) {
-    if (topic === "news") {
-        await loadNewsArticles(company, topic);
+// Load content based on current page and company selection
+async function loadContentByPage(company, page) {
+    if (page === "news") {
+        await loadNewsArticles(company, page);
     } else {
-        await loadStockCard(company, topic);
+        await loadStockCard(company, page);
     }
 }
 
-// Handle company button click to update content and state
+// Handle user clicking a company button
 async function handleCompanyClick(event) {
     const clicked = event.currentTarget;
-    const company = clicked.id;
+    company = clicked.id;
 
-    // Set the active class on the selected company button
-    updateActiveClass("company-btn", `${company}`);
+    // Update UI active class for buttons
+    updateActiveClass("company-btn", company);
 
-    // Save the selected company to localStorage
-    setLocalStorage("prefCompany-ls", company);
+    // Save preference for future visits
+    setLocalStorage(companyStorageKey, company);
 
-    try {
-        // Load content for the selected company
-        await loadContentByTopic(company, topic);
-
-    } catch (error) {
-        console.error(`Failed to load ${company}'s results:`, error);
-    }
+    // Load news or stocks for new company
+    await loadContentByPage(company, page);
 }
 
-// Initialize header/footer, content, and event listeners
+// Immediately Invoked Function Expression(IIFE) to initialize the page:
 (async function init() {
     try {
         await loadHeaderFooter();
-        updateActiveClass("company-btn", `${company}`);
-        await loadContentByTopic(company, topic);
+        updateActiveClass("company-btn", company);
+        await loadContentByPage(company, page);
 
+        // Attach click/touch handlers to company buttons
+        const allCompanyButtons = document.querySelectorAll(".company-btn");
+        allCompanyButtons.forEach(btn => setClick(btn, handleCompanyClick));
+
+        // Attach click/touch handler to menu button for mobile nav
+        setClick(qs("#menu"), toggleMenu);
     } catch (error) {
         console.error("Initialization failed:", error);
     }
-
-    // Attach click/touch event handlers to UI buttons
-    const allCompanyButtons = document.querySelectorAll(".company-btn");
-    allCompanyButtons.forEach(btn => setClick(btn, handleCompanyClick));
-
-    const menuButton = qs("#menu");
-    setClick(menuButton, toggleMenu);
 })();

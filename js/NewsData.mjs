@@ -50,30 +50,35 @@ import { renderListWithTemplate } from "./utils.mjs";
 }
 */
 
+// Template function to generate the HTML string for a single article item
 function newsArticleTemplate(article) {
-  return `
-        <li class="news-article">
-            <a href="${article.url}" class="article-card" target="_blank" rel="noopener noreferrer">
-                <img src="${article.image}" alt="Article image" class="article-image" />
-                <div class="article-content">
-                    <h2 class="article-title">${article.title}</h2>
-                    <p class="article-desc">${article.description}</p>
-                </div>
-            </a>
+    return `
+        <li data-id="${article.id}" class="news-article">
+            <img src="${article.image}" alt="Article image" class="article-image" />
+            <div class="article-content">
+                <h2 class="article-title">${article.title}</h2>
+                <p class="article-desc">${article.description}</p>
+            </div>
         </li>
     `;
 }
 
-export default class ArticlesList {
-  constructor(data, element) {
-    this.data = data;
-    this.element = element;
-    // Render articles immediately upon creation
-    this.renderList(this.data.articles);
-  }
+// NewsData class manages storing news data and rendering it into a container element
+export default class NewsData {
+    constructor(data, element) {
+        this.data = data;
+        this.element = element;
+        // Render articles immediately upon creation
+        this.renderList(this.data.articles);
+    }
 
-  renderList(list) {
-    // Populate the container with article elements using a template
-    renderListWithTemplate(newsArticleTemplate, this.element, list);
-  }
+    // Getter to easily retrieve the articles array from the stored data
+    get articles() {
+        return this.data.articles;
+    }
+
+    renderList(list) {
+        // Populate the container with article elements using a template
+        renderListWithTemplate(newsArticleTemplate, this.element, list);
+    }
 }
