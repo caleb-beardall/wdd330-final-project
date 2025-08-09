@@ -34,18 +34,24 @@ import { renderWithTemplate } from "./utils.mjs";
 
 function stockCardTemplate(stock) {
     return `
-    <div class="stock-card">
-      <h2>${stock.name} (${stock.symbol})</h2>
-      <p><strong>Exchange:</strong> ${stock.exchange}</p>
-      <p><strong>Price:</strong> $${parseFloat(stock.close).toFixed(2)}</p>
-      <p><strong>Change:</strong> ${parseFloat(stock.change).toFixed(2)} (${parseFloat(stock.percent_change).toFixed(2)}%)</p>
-      <p><strong>Open:</strong> $${parseFloat(stock.open).toFixed(2)}</p>
-      <p><strong>High:</strong> $${parseFloat(stock.high).toFixed(2)}</p>
-      <p><strong>Low:</strong> $${parseFloat(stock.low).toFixed(2)}</p>
-      <p><strong>Volume:</strong> ${Number(stock.volume).toLocaleString()}</p>
-      <p><strong>52 Week Range:</strong> ${stock.fifty_two_week.range}</p>
-      <p><strong>Market Status:</strong> ${stock.is_market_open ? "Open" : "Closed"}</p>
-    </div>
+        <div class="stock-card">
+            <div class="stock-header">
+                <h2>${stock.name}</h2>
+                <p>${stock.exchange}: ${stock.symbol}</p>
+            </div>
+            <div class="stock-price">
+                <h3>$${parseFloat(stock.close).toFixed(2)}</h3>
+                <p class="stock-change ${stock.percent_change >= 0 ? "positive" : "negative"}">$${parseFloat(stock.change).toFixed(2)} (${stock.percent_change >= 0 ? "+" : ""}${parseFloat(stock.percent_change).toFixed(2)}%)</p>
+            </div>
+            <div class="stock-details">
+                <div><strong>OPEN:</strong> $${parseFloat(stock.open).toFixed(2)}</div>
+                <div><strong>HIGH:</strong> $${parseFloat(stock.high).toFixed(2)}</div>
+                <div><strong>LOW:</strong> $${parseFloat(stock.low).toFixed(2)}</div>
+            </div>
+            <div class="fifty-two-week">
+                <div><strong>52 WEEK RANGE:</strong> $${parseFloat(stock.fifty_two_week.low).toFixed(2)} - $${parseFloat(stock.fifty_two_week.high).toFixed(2)}</div>
+            </div>
+        </div>
   `;
 }
 
@@ -53,10 +59,12 @@ export default class StockCard {
     constructor(data, element) {
         this.data = data;
         this.element = element;
+        // Render the stock card immediately after instantiation
         this.renderCard(this.data);
     }
 
     renderCard(data) {
+        // Insert the stock card HTML into the target element
         renderWithTemplate(stockCardTemplate, this.element, data);
     }
 }

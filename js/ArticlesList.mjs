@@ -68,10 +68,12 @@ export default class ArticlesList {
   constructor(data, element) {
     this.data = data;
     this.element = element;
+    // Render articles immediately upon creation
     this.renderList(this.data.articles);
   }
 
   renderList(list) {
+    // Populate the container with article elements using a template
     renderListWithTemplate(newsArticleTemplate, this.element, list);
   }
 }

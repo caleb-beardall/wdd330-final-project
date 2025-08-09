@@ -8,6 +8,8 @@
     --dark-blue: #3A34E5;
     --light-red: #FF5C5C;
     --dark-red: #C80042;
+    --light-green: #00C853;
+    --dark-green: #008A35;
 
     /* Grays */
     --gray-100: #f5f5f5;
@@ -36,6 +38,7 @@ body {
 }
 
 header {
+    max-width: 1000px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -45,6 +48,7 @@ header {
     border-top-right-radius: 1rem;
     background-color: var(--gray-100);
     padding: 1rem;
+    margin: 0 auto;
 
     h1 {
         font-family: var(--font-headline);
@@ -93,6 +97,12 @@ header {
 }
 
 main {
+    max-width: 1000px;
+    background-color: var(--gray-300);
+    border-left: 1px solid var(--gray-500);
+    border-right: 1px solid var(--gray-500);
+    margin: 0 auto;
+
     nav#company-buttons {
         display: flex;
         gap: 0.5rem;
@@ -126,9 +136,67 @@ main {
             margin-bottom: 0;
         }
     }
+
+    .stock-container {
+        max-width: 600px;
+        font-family: var(--font-body);
+        color: var(--gray-900);
+        padding: 1rem;
+        margin: 0 auto;
+
+        .stock-card {
+            background-color: var(--gray-100);
+            border: 1px solid var(--gray-500);
+            border-radius: 0.5rem;
+            padding: 1rem;
+
+            .stock-header {
+                font-family: var(--font-headline);
+                margin-bottom: 0.5rem;
+
+                h2 {
+                    font-size: 1.75rem;
+                }
+            }
+
+            .stock-price {
+                font-family: var(--font-headline);
+                margin-bottom: 0.5rem;
+
+                h3 {
+                    font-size: 1.5rem;
+                }
+
+                p {
+                    &.positive {
+                        color: var(--dark-green);
+                    }
+
+                    &.negative {
+                        color: var(--dark-red);
+                    }
+                }
+            }
+
+            .stock-details {
+                margin-bottom: 0.5rem;
+            }
+
+            .stock-details div {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .fifty-two-week div {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    }
 }
 
 footer {
+    max-width: 1000px;
     width: 100%;
     text-align: center;
     font-family: var(--font-body);
@@ -138,6 +206,7 @@ footer {
     color: white;
     background-color: var(--gray-900);
     padding: 1rem;
+    margin: 0 auto;
 }
 
 @media (max-width: 600px) {
