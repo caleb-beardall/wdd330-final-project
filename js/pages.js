@@ -15,7 +15,7 @@ const companyStorageKey = "prefCompany-ls";
 let company = getLocalStorage(companyStorageKey) || "apple";
 const page = getPage();
 
-// Load content based on current page and company selection
+// Load content based on current page and company
 async function loadContentByPage(company, page) {
     if (page === "news") {
         await loadNewsArticles(company, page);

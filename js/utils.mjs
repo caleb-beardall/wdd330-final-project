@@ -37,7 +37,6 @@ export function getPage() {
     return pageName;
 }
 
-
 // localStorage Helpers
 
 // Gets and parses a value from localStorage
