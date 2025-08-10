@@ -15,7 +15,7 @@ export function setClick(selector, callback) {
     el.addEventListener("click", callback);
 }
 
-// Sets the links within the primary buttons depending on the page
+// Sets correct header link paths so they work from both root and subpages
 export function updatePrimaryLinks() {
     const basePath = window.location.pathname.includes("/pages/") ? ".." : ".";
     document.querySelector("#news-btn a").href = `${basePath}/pages/news.html`;
