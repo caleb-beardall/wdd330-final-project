@@ -4,6 +4,6 @@ import {
 } from "./utils.mjs";
 import { displayWelcomeMsg } from "./main.mjs";
 
-loadHeaderFooter();
+await loadHeaderFooter();
 updatePrimaryLinks();
 displayWelcomeMsg();
