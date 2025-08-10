@@ -15,6 +15,13 @@ export function setClick(selector, callback) {
     el.addEventListener("click", callback);
 }
 
+// Sets the links within the primary buttons depending on the page
+export function updatePrimaryLinks() {
+    const basePath = window.location.pathname.includes("/pages/") ? ".." : ".";
+    document.querySelector("#news-btn a").href = `${basePath}/pages/news.html`;
+    document.querySelector("#stocks-btn a").href = `${basePath}/pages/stocks.html`;
+}
+
 // Sets the active class on one element by ID and clears it from the rest
 export function updateActiveClass(className, idName) {
     const allButtons = document.querySelectorAll(`.${className}`);
@@ -106,10 +113,4 @@ export function getTicker(company) {
         tesla: "TSLA"
     };
     return map[company];
-}
-
-export function updatePrimaryLinks() {
-    const basePath = window.location.pathname.includes("/pages/") ? "" : ".";
-    document.querySelector("#news-btn a").href = `${basePath}/news.html`;
-    document.querySelector("#stocks-btn a").href = `${basePath}stocks.html`;
 }
