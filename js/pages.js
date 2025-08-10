@@ -6,7 +6,8 @@ import {
     getPage,
     getLocalStorage,
     setLocalStorage,
-    loadHeaderFooter
+    loadHeaderFooter,
+    updatePrimaryLinks
 } from "./utils.mjs";
 import { loadNewsArticles } from "./news.mjs";
 import { loadStockCard } from "./stocks.mjs";
@@ -43,6 +44,7 @@ async function handleCompanyClick(event) {
 (async function init() {
     try {
         await loadHeaderFooter();
+        updatePrimaryLinks();
         updateActiveClass("company-btn", company);
         await loadContentByPage(company, page);
 

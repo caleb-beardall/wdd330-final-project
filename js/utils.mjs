@@ -107,3 +107,9 @@ export function getTicker(company) {
     };
     return map[company];
 }
+
+export function updatePrimaryLinks() {
+    const basePath = window.location.pathname.includes("/pages/") ? "" : ".";
+    document.querySelector("#news-btn a").href = `${basePath}/news.html`;
+    document.querySelector("#stocks-btn a").href = `${basePath}stocks.html`;
+}
