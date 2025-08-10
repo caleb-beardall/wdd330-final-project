@@ -74,11 +74,27 @@ header h1 {
 }
 
 #news-btn a {
-    background: linear-gradient(to bottom, var(--dark-blue), var(--light-blue));
+    background: linear-gradient(to top, var(--dark-blue), var(--light-blue));
+    background-size: 100% 200%;
+    background-position: top;
+    transition: background-position 2s ease, transform 1s ease;
+}
+
+#news-btn a:hover {
+    background-position: bottom;
+    transform: scale(1.1);
 }
 
 #stocks-btn a {
-    background: linear-gradient(to bottom, var(--dark-red), var(--light-red));
+    background: linear-gradient(to top, var(--dark-red), var(--light-red));
+    background-size: 100% 200%;
+    background-position: top;
+    transition: background-position 2s ease, transform 1s ease;
+}
+
+#stocks-btn a:hover {
+    background-position: bottom;
+    transform: scale(1.1);
 }
 
 .primary-btns a {
@@ -118,7 +134,14 @@ main {
     padding: 0.25rem;
     margin: 0.5rem 0;
     cursor: pointer;
+    transition: background-color 1s ease, color 0.5s ease;
 }
+
+.company-btn:hover {
+    background-color: var(--gray-700);
+    color: var(--gray-100);
+}
+
 
 #company-buttons .open {
     display: none;
@@ -130,6 +153,12 @@ main {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     margin-bottom: 0;
+    transition: none;
+}
+
+#company-buttons .active:hover {
+    background-color: var(--gray-300);
+    color: var(--gray-900);
 }
 
 #welcome-msg {
@@ -143,6 +172,24 @@ main {
 
 #welcome-msg h2 {
     font-family: var(--font-headline);
+    animation: messagePulse 5s ease-in-out infinite alternate;
+}
+
+@keyframes messagePulse {
+    0% {
+        color: var(--dark-blue);
+        transform: scale(1.05);
+    }
+
+    50% {
+        color: var(--gray-900);
+        transform: scale(1);
+    }
+
+    100% {
+        color: var(--dark-red);
+        transform: scale(1.05);
+    }
 }
 
 .news-articles {
@@ -158,6 +205,12 @@ main {
     border-radius: 0.5rem;
     background: var(--gray-100);
     cursor: pointer;
+    transition: transform 1s ease, box-shadow 1s ease;
+}
+
+.news-article:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .article-image {
@@ -167,7 +220,6 @@ main {
     flex-shrink: 0;
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
-
 }
 
 .article-content {
@@ -331,6 +383,12 @@ footer {
         padding: 0.25rem;
         margin: 0.5rem 0;
         cursor: pointer;
+        transition: background-color 1s ease, color 0.5s ease;
+    }
+
+    #company-buttons .open:hover {
+        background-color: var(--gray-700);
+        color: var(--gray-100);
     }
 
     #company-buttons .open::before {
@@ -362,6 +420,12 @@ footer {
         padding: 0.25rem;
         margin: 0;
         cursor: pointer;
+        transition: background-color 1s ease, color 0.5s ease;
+    }
+
+    #company-buttons.dropdown-container .company-btn:hover {
+        background-color: var(--gray-700);
+        color: var(--gray-100);
     }
 
     #company-buttons.dropdown-container .open {
