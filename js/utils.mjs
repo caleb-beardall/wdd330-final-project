@@ -70,8 +70,8 @@ export function renderHtml(html, parentElement) {
 }
 
 // For template functions
-export function renderWithTemplate(templateFunction, parentElement, data) {
-    parentElement.innerHTML = templateFunction(data);
+export function renderWithTemplate(templateFunction, parentElement, data, prevPerf) {
+    parentElement.innerHTML = templateFunction(data, prevPerf);
 }
 
 // Renders a list of HTML items

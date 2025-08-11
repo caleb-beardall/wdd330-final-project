@@ -32,7 +32,18 @@ import { renderWithTemplate } from "./utils.mjs";
 }
 */
 
-function stockCardTemplate(stock) {
+// Creates a small notification showing the change
+// in price since the last visit
+function stockChangeNotification(current, previous) {
+    if (current >= previous) {
+        return `<div class="stock-change"><strong>CHANGE SINCE LAST VISIT:</strong> <span class="positive">$${parseFloat(current - previous).toFixed(2)} (+${parseFloat((current - previous) / previous).toFixed(2)}%)</div>`
+    } else {
+        return `<div class="stock-change"><strong>CHANGE SINCE LAST VISIT:</strong> <span class="negative">$${parseFloat(current - previous).toFixed(2)} (${parseFloat((current - previous) / previous).toFixed(2)}%)</div>`
+    }
+}
+
+// Generates the full HTML for a stock card
+function stockCardTemplate(stock, prevPerf) {
     return `
         <div class="stock-card">
             <div class="stock-header">
@@ -41,6 +52,7 @@ function stockCardTemplate(stock) {
             </div>
             <div class="stock-price">
                 <h3>$${parseFloat(stock.close).toFixed(2)}</h3>
+                ${(!prevPerf || prevPerf.length === 0 || prevPerf[1] !== stock.symbol) ? '' : stockChangeNotification(stock.close, prevPerf[0])}
                 <p class="stock-change ${stock.percent_change >= 0 ? "positive" : "negative"}">$${parseFloat(stock.change).toFixed(2)} (${stock.percent_change >= 0 ? "+" : ""}${parseFloat(stock.percent_change).toFixed(2)}%)</p>
             </div>
             <div class="stock-details">
@@ -55,16 +67,22 @@ function stockCardTemplate(stock) {
   `;
 }
 
-export default class StockCard {
+// Class for storing stock data and rendering it to a DOM element
+export default class StockData {
     constructor(data, element) {
         this.data = data;
         this.element = element;
-        // Render the stock card immediately after instantiation
+        // Render the stock card immediately on creation
         this.renderCard(this.data);
     }
 
-    renderCard(data) {
-        // Insert the stock card HTML into the target element
-        renderWithTemplate(stockCardTemplate, this.element, data);
+    // Getter for accessing the stored object directly
+    get stock() {
+        return this.data;
+    }
+
+    // Renders the stock card into the assigned DOM element
+    renderCard(data, prevPerf) {
+        renderWithTemplate(stockCardTemplate, this.element, data, prevPerf);
     }
 }

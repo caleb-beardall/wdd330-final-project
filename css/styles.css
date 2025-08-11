@@ -313,6 +313,14 @@ main {
     color: var(--dark-red);
 }
 
+.stock-change span.positive {
+    color: var(--dark-green);
+}
+
+.stock-change span.negative {
+    color: var(--dark-red);
+}
+
 .stock-details {
     margin-bottom: 0.5rem;
 }

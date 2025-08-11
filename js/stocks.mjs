@@ -1,7 +1,10 @@
 import ExternalServices from "./ExternalServices.mjs";
-import StockCard from "./StockCard.mjs";
+import StockData from "./StockData.mjs";
+import { setLocalStorage } from "./utils.mjs";
 
-export async function loadStockCard(company, page) {
+
+export async function loadStockCard(company, page, prevPerf) {
+
     // Container where stock card will be displayed
     const parentElement = document.querySelector(".stock-container");
 
@@ -9,13 +12,17 @@ export async function loadStockCard(company, page) {
     parentElement.innerHTML = `<p class="message">Loading ${company}'s stock performance...</p>`;
 
     try {
-        // Fetch news data from API
+        // Fetch stock data from API
         const dataSource = new ExternalServices(company, page);
         const data = await dataSource.getData();
 
         // Render the fetched stock card
-        const stockCard = new StockCard(data, parentElement);
-        stockCard.renderCard(data);
+        const stockData = new StockData(data, parentElement);
+        stockData.renderCard(data, prevPerf);
+
+        // Save current stock performance to localStorage
+        const currentStock = [stockData.stock.close, stockData.stock.symbol];
+        setLocalStorage("stockPerformance-ls", currentStock);
 
     } catch (error) {
         // Show an error message if the request fails
